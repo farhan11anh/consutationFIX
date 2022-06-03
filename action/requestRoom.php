@@ -18,7 +18,7 @@
         // $userData = $response['data'];
 
         $token = $_COOKIE['X-LUMINTU-REFRESHTOKEN'];
-        $users = (json_decode(http_request_with_auth("https://account.lumintulogic.com/api/users.php", $token))->{'user'});
+        $users = (json_decode(http_request_with_auth("https://account.lumintulogic.com/api/user-data.php", $token))->{'data'});
 
         for($i=0;$i<count($users); $i++){
             if($users[$i]->user_id == $_POST['user_id'] ){

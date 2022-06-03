@@ -16,5 +16,5 @@ $objUser->updateLoginStatus();
 unset($_SESSION['user']);
 session_destroy();
 // Redirect user to login page
-header("location: login.php");
+header("location: https://account.lumintulogic.com/logout.php");
 

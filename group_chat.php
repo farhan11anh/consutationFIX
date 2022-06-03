@@ -57,7 +57,7 @@ echo "<input type='hidden' name='userId' id='userId' value='" . $user->user_id .
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment Page</title>
+    <title>Grup chat</title>
 
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -132,7 +132,7 @@ echo "<input type='hidden' name='userId' id='userId' value='" . $user->user_id .
     <div class="flex items-center">
         <!-- Left side (Sidebar) -->
         <?php
-            include 'frontend/pages/partial/_sidebar.php';
+            include 'sidebarChat.php';
         ?>
 
 

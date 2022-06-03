@@ -58,6 +58,7 @@ $acceptances = $acc->getApprove($user->user_id);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List Approvement</title>
+    <link href="Img/icons/logo_lumintu1.ico" rel='icon' />
 
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -250,7 +251,7 @@ $acceptances = $acc->getApprove($user->user_id);
                         <span class="text-light-green">/</span>
                     </li>
                     <li>
-                        <a class="text-light-green font-semibold" href="#">Sesi</a>
+                        <a class="text-light-green font-semibold" href="#">Status Konsultasi</a>
                     </li>
                 </ul>
             </div>

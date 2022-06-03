@@ -47,7 +47,8 @@ $acception = $objAccept->getDataByIdStudent($_SESSION['user_data']->user->user_i
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Assignment Page</title>
+    <title>Halaman Daftar Request</title>
+    <link href="Img/icons/logo_lumintu1.ico" rel='icon' />
 
     <!-- Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -58,6 +59,11 @@ $acception = $objAccept->getDataByIdStudent($_SESSION['user_data']->user->user_i
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.2/dist/flowbite.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+
+    <!-- Intro.JS -->
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/themes/introjs-modern.css" />
+
     <script>
         tailwind.config = {
             theme: {
@@ -217,7 +223,7 @@ $acception = $objAccept->getDataByIdStudent($_SESSION['user_data']->user->user_i
 
 
         <!-- Right side -->
-        <div class="bg-cgray w-full h-screen px-10 py-6 flex flex-col gap-y-6 overflow-y-scroll rightba">
+        <div class="bg-cgray w-full h-screen px-10 py-6 flex flex-col gap-y-6 overflow-y-scroll rightbar">
             <!-- Header / Profile -->
             <div class="flex items-center gap-x-4 justify-end">
                 <img class="w-10" src="./Img/icons/default_profile.svg" alt="Profile Image">
@@ -240,26 +246,19 @@ $acception = $objAccept->getDataByIdStudent($_SESSION['user_data']->user->user_i
                         <span class="text-light-green">/</span>
                     </li>
                     <li>
-                        <a class="text-light-green font-semibold" href="#">Status</a>
+                        <a class="text-light-green font-semibold" href="#">Status Konsultasi</a>
                     </li>
                 </ul>
             </div>
-            <div class="bg-white w-full h-[50px] flex content-center px-10  rounded-xl">
-                <ul class="flex items-center gap-x-8">
-                    <li class="text-dark-green text-cream border-b-4 border-cream h-[50px] flex items-center font-semibold  cursor-pointer">
-                        <p>Status</p>
-                    </li>
-                    <a href="index.php">
-                        <li class="text-dark-green hover:text-cream hover:border-b-4 hover:border-cream h-[50px] flex items-center font-semibold  cursor-pointer">Booking</li>
-                    </a>
-                </ul>
-            </div>
+            <?php
+            include 'partial/student/_navbar.php';
+            ?>
 
             <div>
                 <p class="text-3xl text-dark-green font-semibold">Detail Permohonan</p>
             </div>
 
-            <div>
+            <div class="table-status">
                 <table class="shadow-lg bg-white rounded-xl" style="width: 100%">
                     <colgroup>
                         <col span="1" style="width: 10%">
@@ -274,7 +273,7 @@ $acception = $objAccept->getDataByIdStudent($_SESSION['user_data']->user->user_i
                             <th class="border-b text-center px-4 py-2">Tanggal</th>
                             <th class="border-b text-center px-4 py-2">Jam</th>
                             <th class="border-b text-center px-4 py-2">Status</th>
-                            <th class="border-b text-center px-4 py-2">Keterangan</th>
+                            <th class="border-b text-center px-4 py-2">Aksi</th>
                     </thead>
                     <tbody>
 
@@ -293,7 +292,8 @@ $acception = $objAccept->getDataByIdStudent($_SESSION['user_data']->user->user_i
                                 <?php
 
                                 $token = $_COOKIE['X-LUMINTU-REFRESHTOKEN'];
-                                $users = (json_decode(http_request_with_auth("https://account.lumintulogic.com/api/users.php", $token))->{'user'});
+                                $users = (json_decode(http_request_with_auth("https://account.lumintulogic.com/api/user-data.php", $token))->{'data'});
+                                
 
                                 for ($i = 0; $i < count($users); $i++) {
                                     if ($users[$i]->user_id == $key['user_id']) {
@@ -317,7 +317,7 @@ $acception = $objAccept->getDataByIdStudent($_SESSION['user_data']->user->user_i
                                                 </svg>
                                             </div>
                                             <div class="ml-6 text-sm font-medium text-white">
-                                                Reject
+                                                Tolak
                                             </div>
                                         </div>
                                     <?php } else if ($key['status'] == 'active') { ?>
@@ -328,17 +328,17 @@ $acception = $objAccept->getDataByIdStudent($_SESSION['user_data']->user->user_i
                                                     </path>
                                                 </svg>
                                             </div>
-                                            <div class="ml-6 text-sm font-medium text-white">Approved
+                                            <div class="ml-6 text-sm font-medium text-white">Diterima
                                             </div>
                                         </div>
                                     <?php } else { ?>
-                                        disable
+                                        Menunggu konfirmasi...
                                     <?php } ?>
 
                                 </td>
                                 <td class="border-b px-4 py-2 text-center">
                                     <?php if ($key['status'] == 'active') { ?>
-                                        <a href="./../../group_chat.php"><button type="button" class="px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Konsultasi</button></a>
+                                        <a href="./../../group_chat.php"><button type="button" class=" button-konsultasi px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Konsultasi</button></a>
                                     <?php } else { ?>
                                         <p>-</p>
                                     <?php } ?>
@@ -348,19 +348,6 @@ $acception = $objAccept->getDataByIdStudent($_SESSION['user_data']->user->user_i
                     </tbody>
                 </table>
             </div>
-
-            <div>
-                <button type="button" class="text-gray-900 bg-white hover:bg-gray-100 border border-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-600 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:bg-gray-700 mr-2 mb-2">
-                    <svg class="w-6 h-5 mr-2 -ml-1" viewBox="0 0 2405 2501" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <g clip-path="url(#clip0_1512_1323)">
-                            <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"></path>
-                            </svg>
-                        </g>
-                    </svg>
-                    Kembali
-                </button>
-            </div>
         </div>
     </div>
     </div>
@@ -368,12 +355,97 @@ $acception = $objAccept->getDataByIdStudent($_SESSION['user_data']->user->user_i
     </div>
     </div>
 
+    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <script>
+        const intro = introJs();
+
+        intro.setOptions({
+            steps: [{
+                    title: 'Selamat Datang',
+                    intro: 'Hallo Codetion👋'
+                },
+                {
+                    title: 'Status',
+                    element: document.querySelector('.table-status'),
+                    intro: 'Cek status bimbingan mu disini </br> </br> Jika disetujui, anda bisa langsung melakukan konsultasi dengan mentor.'
+                },
+                {
+                    title: 'Tombol Konsultasi',
+                    element: document.querySelector('.button-konsultasi'),
+                    intro: 'Anda bisa memulai konsultasi dengan menekan tombol konsultasi ini.'
+                },
+                {
+                    title: 'Bantuan',
+                    element: document.querySelector('.help'),
+                    intro: 'Jika anda masih bingung, tombol ini bisa membantu anda untuk <b>mengulangi tutorial<b>.'
+                }
+
+            ],
+            showProgress: true,
+            showBullets: false,
+            disableInteraction: true,
+            showStepNumbers: true
+        })
+
+
+        var name = 'IntroJS';
+        var value = localStorage.getItem(name) || $.cookie(name);
+        var func = function() {
+            if (Modernizr.localstorage) {
+                localStorage.setItem(name, 1)
+            } else {
+                $.cookie(name, 1, {
+                    expires: 365
+                });
+            }
+        };
+        if (value == null) {
+            intro.start().oncomplete(func).onexit(func);
+        };
+    </script>
+
+    <!-- Intro.JS Student -->
+    <script>
+        function tutorial() {
+            introJs().setOptions({
+                steps: [{
+                        title: 'Selamat Datang',
+                        intro: 'Hallo Codetion👋 <br/> Anda butuh bantuan? Yuks aku kasih tauu!'
+                    },
+                    {
+                        title: 'Status',
+                        element: document.querySelector('.table-status'),
+                        intro: 'Cek status bimbingan mu disini </br> </br> Jika disetujui, anda bisa langsung melakukan konsultasi dengan mentor.'
+                        
+                    },
+                    {
+                        title: 'Tombol Konsultasi',
+                        element: document.querySelector('.button-konsultasi'),
+                        intro: 'Anda bisa memulai konsultasi dengan menekan tombol konsultasi ini.'
+                    }
+
+                ],
+                showProgress: true,
+                showBullets: false,
+                disableInteraction: true,
+                showStepNumbers: true
+            }).start()
+        };
+    </script>
+
     <script src="https://unpkg.com/flowbite@1.4.2/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>
     <script>
         let btnToggle = document.getElementById('btnToggle');
         let sidebar = document.querySelector('.sidebar');
         btnToggle.onclick = function() {
+            sidebar.classList.toggle('in-active');
+        }
+        btnToggle2.onclick = function() {
             sidebar.classList.toggle('in-active');
         }
     </script>

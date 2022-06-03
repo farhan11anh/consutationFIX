@@ -42,7 +42,7 @@ $user = $_SESSION['user_data']->{'user'};
 
 $token = $_COOKIE['X-LUMINTU-REFRESHTOKEN'];
 
-$users = (json_decode(http_request_with_auth("https://account.lumintulogic.com/api/users.php", $token))->{'user'});
+$users = (json_decode(http_request_with_auth("https://account.lumintulogic.com/api/user-data.php", $token))->{'data'});
 
 $lectures = [];
 for ($i = 0; $i < count($users); $i++) {
@@ -267,26 +267,16 @@ for ($i = 0; $i < count($users); $i++) {
                         <span class="text-light-green">/</span>
                     </li>
                     <li>
-                        <a class="text-light-green font-semibold" href="#">Booking</a>
+                        <a class="text-light-green font-semibold" href="#">Permohonan Konsultasi</a>
                     </li>
                 </ul>
             </div>
-            <div class="bg-white w-full h-[50px] flex content-center px-10 rounded-xl">
-                <ul class="flex items-center gap-x-8">
-                    <a href="daftarRequest.php">
-                        <li class="status text-dark-green hover:text-cream hover:border-b-4 hover:border-cream h-[50px] flex items-center font-semibold  cursor-pointer">
-                            <p>Status</p>
 
-                        </li>
-                    </a>
+            <?php
+            include 'partial/student/_navbar.php';
+            ?>
 
-                    <a href="">
-                        <li class="booking text-dark-green text-cream border-b-4 border-cream h-[50px] flex items-center font-semibold  cursor-pointer ">
-                            Booking</li>
-                    </a>
 
-                </ul>
-            </div>
             <?php
 
             if (isset($_GET['message']) and ($_GET['message'] == 'success')) {
@@ -348,8 +338,7 @@ for ($i = 0; $i < count($users); $i++) {
                         <!-- Modal body -->
                         <div class="relative bg-white rounded-lg dark:bg-gray-700">
                             <form class="mt-4 px-6 pb-4 space-y-6 lg:px-8 sm:pb-6 xl:pb-8" action="../../action/saveRoom.php" method="post">
-                                <h3 class="text-xl font-medium text-gray-900 text-center dark:text-white">Book Your
-                                    Appointment</h3>
+                                <h3 class="text-xl font-medium text-gray-900 text-center dark:text-white">Ajukan Konsultasimu</h3>
 
                                 <!-- Mentor -->
                                 <div class="flex gap-x-4 py-1 px-10 rounded-xl" id="insert">
@@ -361,26 +350,25 @@ for ($i = 0; $i < count($users); $i++) {
                                     </div>
                                 </div>
                                 <div>
-                                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300" >Nama
+                                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nama
                                         Lengkap</label>
                                     <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 -mb-4 text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Nama Lengkap" value="<?= $user->{'user_username'} ?>" required readonly>
                                 </div>
                                 <div>
                                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-                                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 -mb-4 text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:text-red-600 invalid:focus:ring-red-600 invalid:focus:border-red-600 peer" placeholder="email@example.com" value="<?= $user->{'user_email'} ?> "readonly>
-                                    <p class="mt-5 -mb-5 italic text-xs invisible peer-invalid:visible text-red-600">
+                                    <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 -mb-4 text-gray-400 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white invalid:text-red-600 invalid:focus:ring-red-600 invalid:focus:border-red-600 peer" placeholder="email@example.com" value="<?= $user->{'user_email'} ?> " readonly>
+                                    <!-- <p class="mt-5 -mb-5 italic text-xs invisible peer-invalid:visible text-red-600">
                                         Format alamat email tidak valid.
-                                    </p>
+                                    </p> -->
                                 </div>
                                 <div>
                                     <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 after:content-['*'] after:ml-0.5 after:text-red-500">Waktu</label>
                                     <div class="timepicker relative form-floating mb-3 w-full" id="input-toggle-timepicker" data-mdb-toggle-button="false">
                                         <select name="time" id="time" class=" border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -mb-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-
                                         </select>
-                                        <!-- <input type="text" name="time" id="time"
-                                            class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -mb-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="Select a time" data-mdb-toggle="timepicker" /> -->
+                                        <p class="mt-5 -mb-4 italic text-xs text-gray-500">
+                                            Pilih waktu yang tersedia.
+                                        </p>
                                     </div>
                                 </div>
                                 <div>
@@ -389,8 +377,8 @@ for ($i = 0; $i < count($users); $i++) {
 
                                     <!-- save lecture -->
                                     <input type="text" hidden name="lectureId" id="lecture" value="">
-                                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 after:content-['*'] after:ml-0.5 after:text-red-500">Topic</label>
-                                    <textarea id="message" rows="4" name="topic" class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Leave a comment..."></textarea>
+                                    <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300 after:content-['*'] after:ml-0.5 after:text-red-500">Topik</label>
+                                    <textarea id="message" rows="4" name="topic" class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Tuliskan topik yang ingin dikonsultasikan..."></textarea>
                                 </div>
                                 <div class="text-center">
                                     <button type="submit" name="submit" value="success" class="items-center focus:outline text-white border-yellow-400 bg-yellow-500 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">
@@ -418,7 +406,7 @@ for ($i = 0; $i < count($users); $i++) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
-    <script>        
+    <script>
         const intro = introJs();
 
         intro.setOptions({
@@ -427,7 +415,7 @@ for ($i = 0; $i < count($users); $i++) {
                     intro: 'Hallo Codetion👋'
                 },
                 {
-                    title: 'Booking',
+                    title: 'Permohonan Konsultasi',
                     element: document.querySelector('.booking'),
                     intro: 'Jika anda ingin memilih mentor dan mengajukan konsultasi.'
                 },
@@ -437,7 +425,7 @@ for ($i = 0; $i < count($users); $i++) {
                     intro: 'Pilih Mentor dan ajukan konsultasi.'
                 },
                 {
-                    title: 'Status!',
+                    title: 'Status Konsultasi!',
                     element: document.querySelector('.status'),
                     intro: 'Anda dapat melihat status nya disini'
                 },
@@ -454,7 +442,7 @@ for ($i = 0; $i < count($users); $i++) {
             showStepNumbers: true
         })
 
-        
+
         var name = 'IntroJS';
         var value = localStorage.getItem(name) || $.cookie(name);
         var func = function() {
@@ -477,10 +465,10 @@ for ($i = 0; $i < count($users); $i++) {
             introJs().setOptions({
                 steps: [{
                         title: 'Selamat Datang',
-                        intro: 'Hallo Codetion👋'
+                        intro: 'Hallo Codetion👋 <br/> Anda butuh bantuan? Yuks aku kasih tauu!'
                     },
                     {
-                        title: 'Booking',
+                        title: 'Permohonan Konsultasi',
                         element: document.querySelector('.booking'),
                         intro: 'Jika anda ingin memilih mentor dan mengajukan konsultasi.'
                     },
@@ -490,7 +478,7 @@ for ($i = 0; $i < count($users); $i++) {
                         intro: 'Pilih Mentor dan ajukan konsultasi.'
                     },
                     {
-                        title: 'Status!',
+                        title: 'Status Konsultasi!',
                         element: document.querySelector('.status'),
                         intro: 'Anda dapat melihat status nya disini'
                     }
