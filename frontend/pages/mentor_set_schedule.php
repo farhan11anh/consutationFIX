@@ -73,6 +73,10 @@ $dataAva = $objAva->getDataById($user->user_id);
     <!-- Tailwindcss -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Intro.JS -->
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/themes/introjs-modern.css" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
     <script>
         tailwind.config = {
@@ -265,8 +269,7 @@ $dataAva = $objAva->getDataById($user->user_id);
             include 'partial/mentor/_navbar.php';
             ?>
             <div class="flex flex-row-reverse ...">
-                <button onclick='openModal(<?= $user->user_id ?>,"<?= $user->user_username ?>")' class="px-4 py-2 text-sm font-medium text-center text-blue-700 hover:text-white border border-blue-700 rounded-lg hover:bg-blue-800 mb-2 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-toggle="defaultModal">Atur
-                    jadwal</button>
+                <button onclick='openModal(<?= $user->user_id ?>,"<?= $user->user_username ?>")' class="button-aturjadwal px-4 py-2 text-sm font-medium text-center text-blue-700 hover:text-white border border-blue-700 rounded-lg hover:bg-blue-800 mb-2 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-toggle="defaultModal">Atur Jadwal</button>
             </div>
 
             <?php
@@ -280,7 +283,7 @@ $dataAva = $objAva->getDataById($user->user_id);
             ?>
 
 
-            <div>
+            <div class="table-jadwal">
                 <table class="shadow-lg bg-white rounded-xl" style="width: 100%">
                     <colgroup>
                         <col span="1" style="width: 10%">
@@ -340,14 +343,14 @@ $dataAva = $objAva->getDataById($user->user_id);
                                 <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Waktu
                                     Mulai</label>
                                 <div class="timepicker relative form-floating mb-3 w-full" id="input-toggle-timepicker" data-mdb-toggle-button="false">
-                                    <input type="datetime-local" step="0.001" name="timeStart" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -mb-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select a time" required/>
+                                    <input type="datetime-local" step="0.001" name="timeStart" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -mb-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select a time" required />
                                 </div>
                             </div>
                             <div>
                                 <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Waktu
                                     Selesai</label>
                                 <div class="timepicker relative form-floating mb-3 w-full" id="input-toggle-timepicker" data-mdb-toggle-button="false">
-                                    <input type="datetime-local" step="0.001" name="timeEnd" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -mb-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select a time" required/>
+                                    <input type="datetime-local" step="0.001" name="timeEnd" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 -mb-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select a time" required />
                                 </div>
                                 <input type="text" name="user_id" value="<?= $user->user_id ?>" hidden>
                             </div>
@@ -371,6 +374,88 @@ $dataAva = $objAva->getDataById($user->user_id);
     </div>
     </div>
     </div>
+
+    <!-- Intro.JS -->
+    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <script>
+        const intro = introJs();
+
+        intro.setOptions({
+            steps: [{
+                    title: 'Selamat Datang',
+                    intro: 'Hallo Codetion👋 <br/> Yuks kenalan dengan kami!'
+                },
+                {
+                    title: 'Jadwal Konsultasi',
+                    element: document.querySelector('.table-jadwal'),
+                    intro: 'Jadwal yang tersedia untuk murid berkonsultasi dengan Anda.'
+                },
+                {
+                    title: 'Atur Jadwal',
+                    element: document.querySelector('.button-aturjadwal'),
+                    intro: 'Atur jadwal konsultasi Anda dengan murid disini, tentukan waktu mulai dan selesai nya.'
+                },
+                {
+                    title: 'Bantuan',
+                    element: document.querySelector('.help'),
+                    intro: 'Jika anda masih bingung, tombol ini bisa membantu anda untuk <b>mengulangi tutorial<b>.'
+                }
+
+            ],
+            showProgress: true,
+            showBullets: false,
+            disableInteraction: true,
+            showStepNumbers: true
+        })
+
+
+        var name = 'IntroJS';
+        var value = localStorage.getItem(name) || $.cookie(name);
+        var func = function() {
+            if (Modernizr.localstorage) {
+                localStorage.setItem(name, 1)
+            } else {
+                $.cookie(name, 1, {
+                    expires: 365
+                });
+            }
+        };
+        if (value == null) {
+            intro.start().oncomplete(func).onexit(func);
+        };
+    </script>
+
+    <!-- Intro.JS Student -->
+    <script>
+        function tutorial() {
+            introJs().setOptions({
+                steps: [{
+                        title: 'Selamat Datang',
+                        intro: 'Hallo Codetion👋 <br/> Anda butuh bantuan? Yuks aku kasih tauu!'
+                    },
+                    {
+                        title: 'Jadwal Konsultasi',
+                        element: document.querySelector('.table-jadwal'),
+                        intro: 'Jadwal yang tersedia untuk murid berkonsultasi dengan Anda.'
+                    },
+                    {
+                        title: 'Atur Jadwal',
+                        element: document.querySelector('.button-aturjadwal'),
+                        intro: 'Atur jadwal konsultasi Anda dengan murid disini, tentukan waktu mulai dan selesai nya.'
+                    }
+
+                ],
+                showProgress: true,
+                showBullets: false,
+                disableInteraction: true,
+                showStepNumbers: true
+            }).start()
+        };
+    </script>
 
     <script>
         function openModal(id, uname) {

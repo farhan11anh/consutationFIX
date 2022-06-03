@@ -72,6 +72,10 @@ $grp = new Groups;
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.2/dist/flowbite.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
 
+    <!-- Intro.JS -->
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/themes/introjs-modern.css" />
+
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 
@@ -316,6 +320,98 @@ $grp = new Groups;
     </div>
     </div>
     </div>
+
+    <!-- Intro.JS -->
+    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <script>
+        const intro = introJs();
+
+        intro.setOptions({
+            steps: [{
+                    title: 'Selamat Datang',
+                    intro: 'Hallo Codetion👋 <br/> Yuks kenalan dengan kami!'
+                },
+                {
+                    title: 'Jadwal Konsultasi',
+                    element: document.querySelector('.jadwal'),
+                    intro: 'Jika anda ingin <b> mengatur jadwal konsultasi </b> untuk murid.'
+                },
+                {
+                    title: 'Permohonan Konsultasi',
+                    element: document.querySelector('.permohonan'),
+                    intro: 'Jika anda ingin melihat siswa yang <b> mengajukan konsultasi dan menyetujui atau menolak konsultasi</b>.'
+                },
+                {
+                    title: 'Status Konsultasi',
+                    element: document.querySelector('.status'),
+                    intro: 'Jika anda ingin melihat status dan memulai konsultasi dengan murid.'
+                },
+                {
+                    title: 'Bantuan',
+                    element: document.querySelector('.help'),
+                    intro: 'Jika anda masih bingung, tombol ini bisa membantu anda untuk <b>mengulangi tutorial<b>.'
+                }
+
+            ],
+            showProgress: true,
+            showBullets: false,
+            disableInteraction: true,
+            showStepNumbers: true
+        })
+
+
+        var name = 'IntroJS';
+        var value = localStorage.getItem(name) || $.cookie(name);
+        var func = function() {
+            if (Modernizr.localstorage) {
+                localStorage.setItem(name, 1)
+            } else {
+                $.cookie(name, 1, {
+                    expires: 365
+                });
+            }
+        };
+        if (value == null) {
+            intro.start().oncomplete(func).onexit(func);
+        };
+    </script>
+
+    <!-- Intro.JS Student -->
+    <script>
+        function tutorial() {
+            introJs().setOptions({
+                steps: [{
+                        title: 'Selamat Datang',
+                        intro: 'Hallo Codetion👋 <br/> Anda butuh bantuan? Yuks aku kasih tauu!'
+                    },
+                    {
+                        title: 'Jadwal Konsultasi',
+                        element: document.querySelector('.jadwal'),
+                        intro: 'Jika anda ingin <b> mengatur jadwal konsultasi </b> untuk murid.'
+                    },
+                    {
+                        title: 'Permohonan Konsultasi',
+                        element: document.querySelector('.permohonan'),
+                        intro: 'Jika anda ingin melihat siswa yang <b> mengajukan konsultasi dan menyetujui atau menolak konsultasi</b>.'
+                    },
+                    {
+                        title: 'Status Konsultasi',
+                        element: document.querySelector('.status'),
+                        intro: 'Jika anda ingin melihat status dan memulai konsultasi dengan murid.'
+                    }
+
+                ],
+                showProgress: true,
+                showBullets: false,
+                disableInteraction: true,
+                showStepNumbers: true
+            }).start()
+        };
+    </script>
 
     <script src="https://unpkg.com/flowbite@1.4.2/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>

@@ -69,6 +69,11 @@ $acceptances = $acc->getApprove($user->user_id);
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.2/dist/flowbite.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tw-elements/dist/css/index.min.css" />
+
+    <!-- Intro.JS -->
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/minified/introjs.min.css" />
+    <link rel="stylesheet" href="https://unpkg.com/intro.js/themes/introjs-modern.css" />
+
     <script>
         tailwind.config = {
             theme: {
@@ -259,7 +264,7 @@ $acceptances = $acc->getApprove($user->user_id);
             <?php
             include 'partial/mentor/_navbar.php';
             ?>
-            <div>
+            <div class="status-konsultasi">
                 <table class="shadow-lg bg-white rounded-xl" style="width: 100%">
                     <colgroup>
                         <col span="1" style="width: 10%">
@@ -312,6 +317,78 @@ $acceptances = $acc->getApprove($user->user_id);
     </div>
     </div>
     </div>
+
+    <!-- Intro.JS -->
+    <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    <script>
+        const intro = introJs();
+
+        intro.setOptions({
+            steps: [{
+                    title: 'Selamat Datang',
+                    intro: 'Hallo Codetion👋 <br/> Yuks kenalan dengan kami!'
+                },
+                {
+                    title: 'Status Konsultasi',
+                    element: document.querySelector('.status-konsultasi'),
+                    intro: 'Detail Status Konsultasi.'
+                },
+                {
+                    title: 'Bantuan',
+                    element: document.querySelector('.help'),
+                    intro: 'Jika anda masih bingung, tombol ini bisa membantu anda untuk <b>mengulangi tutorial<b>.'
+                }
+
+            ],
+            showProgress: true,
+            showBullets: false,
+            disableInteraction: true,
+            showStepNumbers: true
+        })
+
+
+        var name = 'IntroJS';
+        var value = localStorage.getItem(name) || $.cookie(name);
+        var func = function() {
+            if (Modernizr.localstorage) {
+                localStorage.setItem(name, 1)
+            } else {
+                $.cookie(name, 1, {
+                    expires: 365
+                });
+            }
+        };
+        if (value == null) {
+            intro.start().oncomplete(func).onexit(func);
+        };
+    </script>
+
+    <!-- Intro.JS Student -->
+    <script>
+        function tutorial() {
+            introJs().setOptions({
+                steps: [{
+                        title: 'Selamat Datang',
+                        intro: 'Hallo Codetion👋 <br/> Anda butuh bantuan? Yuks aku kasih tauu!'
+                    },
+                    {
+                        title: 'Status Konsultasi',
+                        element: document.querySelector('.status-konsultasi'),
+                        intro: 'Detail Status Konsultasi.'
+                    }
+
+                ],
+                showProgress: true,
+                showBullets: false,
+                disableInteraction: true,
+                showStepNumbers: true
+            }).start()
+        };
+    </script>
 
     <script src="https://unpkg.com/flowbite@1.4.2/dist/flowbite.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tw-elements/dist/js/index.min.js"></script>

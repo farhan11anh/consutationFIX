@@ -52,7 +52,7 @@
     <div>
         <ul class="flex flex-col ">
             <li>
-                <a class="flex items-center gap-x-4 h-[50px] rounded-xl px-4 hover:bg-cream text-dark-green hover:text-white">
+                <a onclick="javascript:tutorial()" class="help flex items-center gap-x-4 h-[50px] rounded-xl px-4 hover:bg-cream text-dark-green hover:text-white">
                     <img class="w-5" src="./Img/icons/help_icon.svg" alt="Help Icon">
                     <p class="font-semibold">Bantuan</p>
                 </a>

@@ -401,6 +401,7 @@ for ($i = 0; $i < count($users); $i++) {
     </div>
     </div>
 
+    <!-- Intro.JS -->
     <script src="https://unpkg.com/intro.js/minified/intro.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
@@ -412,7 +413,7 @@ for ($i = 0; $i < count($users); $i++) {
         intro.setOptions({
             steps: [{
                     title: 'Selamat Datang',
-                    intro: 'Hallo Codetion👋'
+                    intro: 'Hallo Codetion👋 <br/> Yuks kenalan dengan kami!'
                 },
                 {
                     title: 'Permohonan Konsultasi',
