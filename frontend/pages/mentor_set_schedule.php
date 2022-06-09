@@ -269,7 +269,7 @@ $dataAva = $objAva->getDataById($user->user_id);
             include 'partial/mentor/_navbar.php';
             ?>
             <div class="flex flex-row-reverse ...">
-                <button onclick='openModal(<?= $user->user_id ?>,"<?= $user->user_username ?>")' class="button-aturjadwal px-4 py-2 text-sm font-medium text-center text-blue-700 hover:text-white border border-blue-700 rounded-lg hover:bg-blue-800 mb-2 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-toggle="defaultModal">Atur Jadwal</button>
+                <button onclick='openModal(<?= $user->user_id ?>,"<?= $user->user_username ?>")' class="button-aturjadwal px-4 py-2 text-sm font-medium text-center text-white hover:text-white border border-blue-700 rounded-lg bg-blue-600 hover:bg-blue-800 mb-2 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-toggle="defaultModal">Atur Jadwal</button>
             </div>
 
             <?php
